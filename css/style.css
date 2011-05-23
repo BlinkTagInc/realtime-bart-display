@@ -63,40 +63,9 @@ a:hover {
   display:none;
 }
 
-#map_canvas{
-  width:600px;
-  height:390px;
-  float:right;
-  border:1px solid #ccc;
-  display:none;
-}
-
-.map_label{
-  padding: 2px;
-  background-color: white;
-  position: relative;
-  left: -50%;
-  top: -8px;
-  white-space: nowrap;
-  border: 1px solid #0037c3;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  font-size:18px;
-  font-weight:bold;
-}
-
-#transit_map{
-  width:366px;
-  float:right;
-  clear:right;
-  width:600px;
-  text-align:center;
-}
-
 .transitBox{
   text-align:left;
-  padding:20px;
+  padding:20px 30px;
 }
 
 .transitBox h3{
@@ -116,7 +85,7 @@ a:hover {
 }
 
 .departure{
-  margin:15px 0;
+  padding:8px 0;
 }
 
 .departure .destination {
@@ -150,14 +119,21 @@ a:hover {
 }
 
 .weather{
-  
+  background:rgba(35,35,35,0.9);
   padding:5px 5px 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -moz-border-radius-bottomright: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-.weather .temp{
-  font-size:24px;
-  float:left;
-  width:80px;
+.weather div{
+  font-size:18px;
+  display:inline-block;
+  padding:0 10px;
+  color:#fff;
 }
 
 #setupFormContainer{
@@ -220,4 +196,5 @@ a:hover {
   bottom:10px;
   right:10px;
   font-size:11px;
+  text-shadow: 0.1em 0.1em 0.05em #eee;
 }
