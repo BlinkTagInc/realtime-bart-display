@@ -81,17 +81,17 @@ function getWeather(){
     } else {
       $('.weather').html(
         '<div class="temp">' + context.weather.temperature.replace("F", "&deg;") + '</div>' +
-        '<strong>' + context.weather.conditions + '</strong>' +
-        '<br>Precipitation: <strong>' + context.weather.forecast.today.precipitation + '</strong>' +
-        '<br>Range: <strong>' + context.weather.forecast.today.temperature.min.replace("F", "&deg;F") + 
-        ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong>'
+        '<div><strong>' + context.weather.conditions + '</strong>' +
+        ' Precipitation: <strong>' + context.weather.forecast.today.precipitation + '</strong>' +
+        ' Range: <strong>' + context.weather.forecast.today.temperature.min.replace("F", "&deg;F") + 
+        ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong></div>'
       );
     }
   });
 }
 
 
-function getBART(){
+function getBART(station){
   var url = 'http://api.bart.gov/api/etd.aspx';
 
   //Request Northbound Departures
@@ -99,12 +99,15 @@ function getBART(){
     url: url,
     data: {
       cmd: 'etd',
-      orig: '16TH',
-      key: bartAPIKey,
-      dir: 'n'
+      orig: station,
+      dir: 'n',
+      key: bartAPIKey
     },
     dataType: 'xml',
     success:function(result){
+      //Page title
+      $('.pageTitle h1').html($(result).find('name').text());
+      
       $('#bart_north .departures').html('');
       $(result).find('etd').each(function(i, data){
         $('#bart_north .departures').append(addDirection(data));
@@ -117,9 +120,9 @@ function getBART(){
     url: url,
     data: {
       cmd: 'etd',
-      orig: '16TH',
-      key: bartAPIKey,
-      dir: 's'
+      orig: station,
+      dir: 's',
+      key: bartAPIKey
     },
     dataType: 'xml',
     success:function(result){
@@ -130,6 +133,7 @@ function getBART(){
     }
   });
   
+  
   function addDirection(data){
     var destination = $(data).find('destination').text();
     switch(destination){
@@ -137,6 +141,9 @@ function getBART(){
         var color = '#00aeef';
         break;
       case 'Pittsburg/Bay Point':
+        var color = '#ffe800';
+        break;
+      case 'Concord':
         var color = '#ffe800';
         break;
       case 'Richmond':
@@ -265,7 +272,7 @@ function setupForm(){
     dataType: 'xml',
     success:function(result){
       $(result).find('station').each(function(i, data){
-        $('#stationSelect').append('<option value="' + $(data).find('abr').text() + '">' + $(data).find('name').text() + '</option>');
+        $('#stationSelect').append('<option value="' + $(data).find('abbr').text() + '">' + $(data).find('name').text() + '</option>');
       });
     }
   });
@@ -278,10 +285,13 @@ google.setOnLoadCallback(function(){
   
   //Detect settings
   if($.getUrlVar('station')){
+    
+    $('#infoContainer').show();
+    $('#setupFormContainer').hide();
   
     //Do transit directions
     //Get BART
-    setInterval(getBART(),15000);
+    setInterval(getBART($.getUrlVar('station')),15000);
   
     setInterval(getWeather(),1200000);
 
@@ -290,10 +300,6 @@ google.setOnLoadCallback(function(){
     
   } else {
     //No parameters sent
-    $('#map_canvas').hide();
-    $('#bart').hide();
-    $('#setupFormContainer').show();
-    
     setupForm();
     
   }

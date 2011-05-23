@@ -11,31 +11,35 @@
     
     <div id="infoContainer">
       
-      <div id="pageTitle">
-        <h1>BART Arrival Display</h1>
-        <div class="weather"></div>
+      <div class="pageTitle">
+        <div class="tagline">BART Arrivals</div>
+        <h1></h1>
       </div>
     
       <div id="map_canvas"></div>
   
       <div id="bart" class="transitBox">
         <div id="bart_north">
-          <h3>BART Downtown/East Bay</h3>
+          <h3>Northbound</h3>
           <div class="departures"></div>
         </div>
         <div id="bart_south">
-          <h3>BART South/Airport</h3>
+          <h3>Southbound</h3>
           <div class="departures"></div>
         </div>
       </div>
       
+      <div class="weather"></div>
+      
     </div>
     
     <div id="setupFormContainer">
-      <div class="tagline">Bay Area Rapid Transit</div>
-      <h1>Realtime BART Display</h1>
+      <div class="pageTitle">
+        <div class="tagline">Bay Area Rapid Transit</div>
+        <h1>Realtime BART Display</h1>
+      </div>
       <h3>Choose a Station</h3>
-      <form id="setupForm">
+      <form id="setupForm" action="" method="get">
         <select name="station" id="stationSelect"></select>
         <input type="submit" id="submit">
       </form>
