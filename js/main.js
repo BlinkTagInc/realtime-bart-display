@@ -200,6 +200,11 @@ function setupForm(){
   });
 }
 
+function rotateBackground(){
+  var imageCount = 32;
+  $('#background img').attr('src','images/backgrounds/' + Math.ceil(Math.random()*imageCount) + '.jpg');
+}
+
 google.setOnLoadCallback(function(){
   
   //Detect settings
@@ -254,5 +259,8 @@ google.setOnLoadCallback(function(){
       $('#toggleImages').click();
     }
   }
+  
+  //Background rotator
+  setInterval(rotateBackground, 300000);
   
 });
