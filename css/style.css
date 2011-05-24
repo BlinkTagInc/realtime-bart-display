@@ -159,7 +159,7 @@ a:hover {
 #stationSelect{
   font-size:20px;
   vertical-align:middle;
-  display:block;
+  display:none;
 }
 
 #submit{

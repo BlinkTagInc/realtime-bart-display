@@ -19,7 +19,9 @@ $.extend({
   }
 });
 
-function getWeather(station){
+function getWeather(){
+  
+  var station = $.getUrlVar('station');
   //Get Lat/Lon from BART API first to look up weather
   var url = 'http://api.bart.gov/api/stn.aspx';
 
@@ -53,7 +55,8 @@ function getWeather(station){
   });
 }
 
-function getBART(station){
+function getBART(){
+  var station = $.getUrlVar('station');
   var url = 'http://api.bart.gov/api/etd.aspx';
   
   var bart = [];
@@ -192,6 +195,7 @@ function setupForm(){
         }
       }
       
+      $('#stationSelect').show();
     }
   });
 }
@@ -200,10 +204,11 @@ google.setOnLoadCallback(function(){
   
   //Detect settings
   if($.getUrlVar('station')){
+    var station = $.getUrlVar('station');
     
     //Set this as a localstorage option for next time
     if(Modernizr.localstorage) {
-      localStorage.setItem("station",$.getUrlVar('station'));
+      localStorage.setItem("station", station);
     }
     
     $('#infoContainer').show();
@@ -211,9 +216,11 @@ google.setOnLoadCallback(function(){
   
     //Do transit directions
     //Get BART
-    setInterval(getBART($.getUrlVar('station')),15000);
+    getBART();
+    setInterval(getBART, 15000);
   
-    setInterval(getWeather($.getUrlVar('station')),1200000);
+    getWeather();
+    setInterval(getWeather, 1200000);
     
   } else {
     //No parameters sent
