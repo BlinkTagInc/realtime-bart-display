@@ -191,10 +191,19 @@ a:hover {
   width: 100%;
 }
 
+#background a{
+  font-size:11px;
+  text-shadow: 0.1em 0.1em 0.05em #eee;
+}
+
 #background .credit{
   position: absolute;
   bottom:10px;
   right:10px;
-  font-size:11px;
-  text-shadow: 0.1em 0.1em 0.05em #eee;
+}
+
+#background .changeStation{
+  position: absolute;
+  bottom:10px;
+  left:10px;
 }

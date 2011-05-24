@@ -27,13 +27,11 @@ function getWeather(){
     if (err) {
       console.log(err);
     } else {
-      $('.weather').html(
-        '<div class="temp"><strong>' + context.weather.temperature.replace("F", "&deg;") + '</strong></div>' +
+      $('.weather').html('<div class="temp"><strong>' + context.weather.temperature.replace("F", "&deg;") + '</strong></div>' +
         '<div class="condition"><strong>' + context.weather.conditions + '</strong></div>' +
         '<div class="precipitation">Precipitation: <strong>' + context.weather.forecast.today.precipitation + '</strong></div>' +
         '<div class="range">Range: <strong>' + context.weather.forecast.today.temperature.min.replace("F", "&deg;F") + 
-        ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong></div>'
-      );
+        ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong></div>');
     }
   });
 }
