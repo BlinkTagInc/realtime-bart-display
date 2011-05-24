@@ -184,6 +184,14 @@ function setupForm(){
       $(result).find('station').each(function(i, data){
         $('#stationSelect').append('<option value="' + $(data).find('abbr').text() + '">' + $(data).find('name').text() + '</option>');
       });
+      
+      //Retreive station from localstorage
+      if(Modernizr.localstorage) {
+        if(localStorage.getItem("station")){
+          $('#stationSelect').val(localStorage.getItem("station"));
+        }
+      }
+      
     }
   });
 }
@@ -192,6 +200,11 @@ google.setOnLoadCallback(function(){
   
   //Detect settings
   if($.getUrlVar('station')){
+    
+    //Set this as a localstorage option for next time
+    if(Modernizr.localstorage) {
+      localStorage.setItem("station",$.getUrlVar('station'));
+    }
     
     $('#infoContainer').show();
     $('#setupFormContainer').hide();
