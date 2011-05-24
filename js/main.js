@@ -19,19 +19,36 @@ $.extend({
   }
 });
 
-function getWeather(){
-  //Get weather from SimpleGeo
-  var client = new simplegeo.ContextClient(simpleGeoAPIKey);
-  
-  client.getContext('37.778381','-122.389388', function(err, context) {
-    if (err) {
-      console.log(err);
-    } else {
-      $('.weather').html('<div class="temp"><strong>' + context.weather.temperature.replace("F", "&deg;") + '</strong></div>' +
-        '<div class="condition"><strong>' + context.weather.conditions + '</strong></div>' +
-        '<div class="precipitation">Precipitation: <strong>' + context.weather.forecast.today.precipitation + '</strong></div>' +
-        '<div class="range">Range: <strong>' + context.weather.forecast.today.temperature.min.replace("F", "&deg;F") + 
-        ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong></div>');
+function getWeather(station){
+  //Get Lat/Lon from BART API first to look up weather
+  var url = 'http://api.bart.gov/api/stn.aspx';
+
+  var bart = [];
+
+  //Request Departures
+  $.ajax({
+    url: url,
+    data: {
+      cmd: 'stninfo',
+      orig: station,
+      key: bartAPIKey
+    },
+    dataType: 'xml',
+    success:function(result){
+      //Get weather from SimpleGeo
+       var client = new simplegeo.ContextClient(simpleGeoAPIKey);
+
+       client.getContext($(result).find('gtfs_latitude').text(), $(result).find('gtfs_longitude').text(), function(err, context) {
+         if (err) {
+           console.log(err);
+         } else {
+           $('.weather').html('<div class="temp"><strong>' + context.weather.temperature.replace("F", "&deg;") + '</strong></div>' +
+             '<div class="condition"><strong>' + context.weather.conditions + '</strong></div>' +
+             '<div class="precipitation">Precipitation: <strong>' + context.weather.forecast.today.precipitation + '</strong></div>' +
+             '<div class="range">Range: <strong>' + context.weather.forecast.today.temperature.min.replace("F", "&deg;F") + 
+             ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong></div>');
+         }
+       });
     }
   });
 }
@@ -183,7 +200,7 @@ google.setOnLoadCallback(function(){
     //Get BART
     setInterval(getBART($.getUrlVar('station')),15000);
   
-    setInterval(getWeather(),1200000);
+    setInterval(getWeather($.getUrlVar('station')),1200000);
     
   } else {
     //No parameters sent
