@@ -41,16 +41,14 @@ function getWeather(){
 function getBART(station){
   var url = 'http://api.bart.gov/api/etd.aspx';
   
-  var bartNorth = [];
-  var bartSouth = [];
+  var bart = [];
 
-  //Request Northbound Departures
+  //Request Departures
   $.ajax({
     url: url,
     data: {
       cmd: 'etd',
       orig: station,
-      dir: 'n',
       key: bartAPIKey
     },
     dataType: 'xml',
@@ -59,51 +57,26 @@ function getBART(station){
       $('.pageTitle h1').html($(result).find('name').text());
       
       $('#bartNorth .departures').html('');
+      $('#bartSouth .departures').html('');
+      
       $(result).find('etd').each(function(i, data){
         //Process directions
         departure = addDirection(data);
         if(departure){
-          bartNorth.push(departure);
+          bart.push(departure);
         }
       });
       
       //Sort departures
-      bartNorth.sort(bartSortHandler);
+      bart.sort(bartSortHandler);
       
-      $.each(bartNorth, function(i, departure){
-        $('#bartNorth .departures').append(departure.div);
-      });
-    }
-  });
-  
-  //Request Southbound Departures
-  $.ajax({
-    url: url,
-    data: {
-      cmd: 'etd',
-      orig: station,
-      dir: 's',
-      key: bartAPIKey
-    },
-    dataType: 'xml',
-    success:function(result){
-      console.log(result);
-      $('#bartSouth .departures').html('');
-      $(result).find('etd').each(function(i, data){
-        //Process directions
-        departure = addDirection(data);
-        if(departure){
-          bartSouth.push(departure);
+      $.each(bart, function(i, departure){
+        if(departure.direction == 'North'){
+          $('#bartNorth .departures').append(departure.div);
+        } else {
+          $('#bartSouth .departures').append(departure.div);
         }
       });
-      
-     //Sort departures
-      bartSouth.sort(bartSortHandler);
-
-      $.each(bartSouth, function(i, departure){
-        $('#bartSouth .departures').append(departure.div);
-      });
-      
     }
   });
   
@@ -161,12 +134,14 @@ function getBART(station){
         
         departure.times.push(minutes);
         
+        departure.direction = $(data).find('direction').text();
+        
         departure.div += '<span class="time">' + minutes + '</span>';
       }
     });
     departure.div += '</div>';
     
-    //Check if first time is less than 40 minutes away. If not, discard
+    //Check if first time is less than 40 minutes away. If not, discard entire destination
     if(departure.times[0] < 40){
       return departure;
     } else {
