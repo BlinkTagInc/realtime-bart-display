@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>BART Arrival Display</title>
+  
+  <script src="js/modernizr-1.7.min.js"></script>
   <link rel="stylesheet" href="css/style.css" media="screen" />
   <link href='http://fonts.googleapis.com/css?family=Lato:regular,900,900italic' rel='stylesheet' type='text/css'>
 </head>
@@ -48,8 +50,11 @@
         var imageCount = 32;
         document.write("<img src='images/backgrounds/" + Math.ceil(Math.random()*imageCount) + ".jpg'>");
       </script>
+      <div class="credit">
+        <a href="http://www.flickr.com/photos/walkingsf/" class="photoCredit">Image from Eric Fischer</a><br><a href="" id="toggleImages">Hide Images</a>
+      </div>
+      
       <a href="index.html" class="changeStation">Change Station</a>
-      <a href="http://www.flickr.com/photos/walkingsf/" class="credit">Image from Eric Fischer</a>
     </div>
     
   </div>

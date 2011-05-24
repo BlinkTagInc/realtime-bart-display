@@ -208,4 +208,31 @@ google.setOnLoadCallback(function(){
     
   }
   
+  //Click handler for toggling background images
+  $('#toggleImages').click(function(){
+    if($('#background img').is(':visible')){
+      $('#toggleImages').html('Show Images');
+      $('#background img').fadeOut();
+      $('.photoCredit').fadeOut();
+      if(Modernizr.localstorage) {
+        localStorage.setItem("backgroundImage",false);
+      }
+    } else {
+      $('#toggleImages').html('Hide Images');
+      $('#background img').fadeIn();
+      $('.photoCredit').fadeIn();
+      if(Modernizr.localstorage) {
+        localStorage.setItem("backgroundImage",true);
+      }
+    }
+    return false;
+  });
+  
+  //Detect if backgroundImage preference is set
+  if(Modernizr.localstorage) {
+    if(localStorage.getItem("backgroundImage") === "false"){
+      $('#toggleImages').click();
+    }
+  }
+  
 });
