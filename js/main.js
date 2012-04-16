@@ -1,6 +1,5 @@
-var map;
-var bartAPIKey = 'MW9S-E7SL-26DU-VV8V';
-var simpleGeoAPIKey = 'BPSeehMRSqd9cFU5DWTUSctk9Xb5cnU3';
+var map
+  , bartAPIKey = 'MW9S-E7SL-26DU-VV8V';
 
 $.extend({
   getUrlVars: function(){
@@ -18,42 +17,6 @@ $.extend({
     return $.getUrlVars()[name];
   }
 });
-
-function getWeather(){
-  
-  var station = $.getUrlVar('station');
-  //Get Lat/Lon from BART API first to look up weather
-  var url = 'http://api.bart.gov/api/stn.aspx';
-
-  var bart = [];
-
-  //Request Departures
-  $.ajax({
-    url: url,
-    data: {
-      cmd: 'stninfo',
-      orig: station,
-      key: bartAPIKey
-    },
-    dataType: 'xml',
-    success:function(result){
-      //Get weather from SimpleGeo
-       var client = new simplegeo.ContextClient(simpleGeoAPIKey);
-
-       client.getContext($(result).find('gtfs_latitude').text(), $(result).find('gtfs_longitude').text(), function(err, context) {
-         if (err) {
-           console.log(err);
-         } else {
-           $('.weather').html('<div class="temp"><strong>' + context.weather.temperature.replace("F", "&deg;") + '</strong></div>' +
-             '<div class="condition"><strong>' + context.weather.conditions + '</strong></div>' +
-             '<div class="precipitation">Precipitation: <strong>' + context.weather.forecast.today.precipitation + '</strong></div>' +
-             '<div class="range">Range: <strong>' + context.weather.forecast.today.temperature.min.replace("F", "&deg;F") + 
-             ' - ' + context.weather.forecast.today.temperature.max.replace("F", "&deg;F") + '</strong></div>');
-         }
-       });
-    }
-  });
-}
 
 function getBART(){
   var station = $.getUrlVar('station');
@@ -206,6 +169,11 @@ function rotateBackground(){
 }
 
 google.setOnLoadCallback(function(){
+
+  //Get background image
+  var imageCount = 32;
+  var image = "<img src='images/backgrounds/" + Math.ceil(Math.random()*imageCount) + ".jpg'>"
+  var background = document.getElementById('background').innerHTML = image;
   
   //Detect settings
   if($.getUrlVar('station')){
@@ -224,9 +192,6 @@ google.setOnLoadCallback(function(){
     getBART();
     setInterval(getBART, 15000);
   
-    getWeather();
-    setInterval(getWeather, 1200000);
-    
   } else {
     //No parameters sent
     setupForm();

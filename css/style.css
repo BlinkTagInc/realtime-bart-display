@@ -157,9 +157,9 @@ a:hover {
 }
 
 #stationSelect{
-  font-size:20px;
   vertical-align:middle;
   display:none;
+  font-size: 16px;
 }
 
 #submit{
@@ -191,20 +191,27 @@ a:hover {
   width: 100%;
 }
 
-#background a{
+#controls{
+  position:absolute;
+  bottom:10px;
+  width:100%;
+}
+
+#controls a{
   font-size:11px;
   text-shadow: 0.1em 0.1em 0.05em #eee;
 }
 
-#background .credit{
-  position: absolute;
-  bottom:10px;
-  right:10px;
+#controls .credit{
   text-align:right;
+  float:right;
+  width:400px;
+  padding-right:10px;
 }
 
-#background .changeStation{
-  position: absolute;
-  bottom:10px;
-  left:10px;
+#controls .changeStation{
+  float:left;
+  width:400px;
+  padding-left:10px;
+  padding-top:20px;
 }
