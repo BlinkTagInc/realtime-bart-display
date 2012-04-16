@@ -1,26 +1,26 @@
-Realtime BART Display
-=========
+#Realtime BART Display
 
 A realtime transit display meant for a kiosk with no user interaction.  It shows realtime arrivals of BART trains.  It allows the user to select a station and choose whether or not to show background images.
 
-### Example ###
+It is perfect for a display at a coffee shop, office or other public place near a BART station.
+
+##Example
 
 You can see the Realtime BART Display in use at [bart.blinktag.com](http://bart.blinktag.com)
 
-### APIs ###
+##APIs
 
-* [SimpleGeo](http://simplegeo.com) for weather
 * [BART API](http://api.bart.gov)
 
-### Credits ###
+##Credits
 
-Brendan Nee brendan@blinktag.com
+Brendan Nee me@bn.ee
 
-### License ###
+##License
 
 (The MIT License)
 
-Copyright (c) 2010 BlinkTag Inc &lt;info@blinktag.com&gt;
+Copyright (c) 2012 Brendan Nee &lt;me@bn.ee&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
