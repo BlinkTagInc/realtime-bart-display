@@ -1,5 +1,5 @@
 var map
-  , bartAPIKey = 'MW9S-E7SL-26DU-VV8V';
+  , bartAPIKey = 'MPKS-MV5G-YZUU-VV8V';
 
 $.extend({
   getUrlVars: function(){
