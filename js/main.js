@@ -19,7 +19,7 @@ $.extend({
 
 function updateBART(){
   updateDepartures();
-  updatedAdvisories();
+  updateAdvisories();
 }
 
 function updateDepartures(){
@@ -138,12 +138,10 @@ function updateDepartures(){
   }
 }
 
-function updatedAdvisories(){
+function updateAdvisories(){
   var station = $.getUrlVar('station')
-    , url = 'http://api.bart.gov/api/bsa.aspx'
-    , bart = [];
+    , url = 'http://api.bart.gov/api/bsa.aspx';
 
-  //Request Departures
   $.ajax({
     url: url,
     data: {
