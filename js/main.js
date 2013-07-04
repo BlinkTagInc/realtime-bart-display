@@ -1,5 +1,4 @@
-var map
-  , bartAPIKey = 'MPKS-MV5G-YZUU-VV8V';
+var bartAPIKey = 'MPKS-MV5G-YZUU-VV8V';
 
 $.extend({
   getUrlVars: function(){
@@ -18,11 +17,15 @@ $.extend({
   }
 });
 
-function getBART(){
-  var station = $.getUrlVar('station');
-  var url = 'http://api.bart.gov/api/etd.aspx';
-  
-  var bart = [];
+function updateBART(){
+  updateDepartures();
+  updatedAdvisories();
+}
+
+function updateDepartures(){
+  var station = $.getUrlVar('station')
+    , url = 'http://api.bart.gov/api/etd.aspx'
+    , bart = [];
 
   //Request Departures
   $.ajax({
@@ -135,6 +138,34 @@ function getBART(){
   }
 }
 
+function updatedAdvisories(){
+  var station = $.getUrlVar('station')
+    , url = 'http://api.bart.gov/api/bsa.aspx'
+    , bart = [];
+
+  //Request Departures
+  $.ajax({
+    url: url,
+    data: {
+      cmd: 'bsa',
+      orig: station,
+      key: bartAPIKey
+    },
+    dataType: 'xml',
+    success:function(result){
+      $('#advisories').empty();
+      $(result).find('bsa').each(function(i, data){
+        //Process advisories
+       $('<div>')
+        .addClass('advisory')
+        .text($(data).find('description').text())
+        .appendTo('#advisories');
+      });
+    }
+  });
+};
+
+
 function setupForm(){
   var url = 'http://api.bart.gov/api/stn.aspx';
 
@@ -173,7 +204,6 @@ $(function(){
   //Get background image
   var imageCount = 32;
   var image = "<img src='images/backgrounds/" + Math.ceil(Math.random()*imageCount) + ".jpg'>"
-  var background = document.getElementById('background').innerHTML = image;
   
   //Detect settings
   if($.getUrlVar('station')){
@@ -187,15 +217,11 @@ $(function(){
     $('#infoContainer').show();
     $('#setupFormContainer').hide();
   
-    //Do transit directions
-    //Get BART
-    getBART();
-    setInterval(getBART, 15000);
-  
+    updateBART();
+    setInterval(updateBART, 15000);
   } else {
     //No parameters sent
     setupForm();
-    
   }
   
   //Click handler for toggling background images
