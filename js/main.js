@@ -168,7 +168,7 @@ function rotateBackground(){
   $('#background img').attr('src','images/backgrounds/' + Math.ceil(Math.random()*imageCount) + '.jpg');
 }
 
-google.setOnLoadCallback(function(){
+$(function(){
 
   //Get background image
   var imageCount = 32;

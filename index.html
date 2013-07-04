@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8">
   <title>BART Arrival Display</title>
-  
-  <script src="js/modernizr-1.7.min.js"></script>
   <link rel="stylesheet" href="css/style.css" media="screen" />
   <link href='http://fonts.googleapis.com/css?family=Lato:regular,900,900italic' rel='stylesheet' type='text/css'>
+  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
   <div id="transitContainer" class="container">
@@ -55,15 +54,11 @@
     </div>
     
   </div>
-  
-  <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAA7ryB86mtzsqx_XU57t8PNhTMTGztSySO4_rR2h0VlHQYebwNHBQfKBMwuobg9gRDpM6rxsFgfXCnug"></script>
 
-  <script type="text/javascript">
-    google.load("maps", "3.x",{"other_params":"sensor=false"});
-    google.load("jquery", "1.5.1");
-  </script>
-  
-  <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+  <script src="js/main.js"></script>
   
 </body>
 </html>
