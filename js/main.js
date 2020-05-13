@@ -201,7 +201,7 @@ $(function(){
 
   //Get background image
   var imageCount = 32;
-  var image = "<img src='images/backgrounds/" + Math.ceil(Math.random()*imageCount) + ".jpg'>"
+  $('#background').append("<img src='images/backgrounds/" + Math.ceil(Math.random()*imageCount) + ".jpg'>")
   
   //Detect settings
   if($.getUrlVar('station')){
