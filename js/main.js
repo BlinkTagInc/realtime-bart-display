@@ -24,7 +24,7 @@ function updateBART(){
 
 function updateDepartures(){
   var station = $.getUrlVar('station')
-    , url = 'http://api.bart.gov/api/etd.aspx'
+    , url = 'https://api.bart.gov/api/etd.aspx'
     , bart = [];
 
   //Request Departures
@@ -140,7 +140,7 @@ function updateDepartures(){
 
 function updateAdvisories(){
   var station = $.getUrlVar('station')
-    , url = 'http://api.bart.gov/api/bsa.aspx';
+    , url = 'https://api.bart.gov/api/bsa.aspx';
 
   $.ajax({
     url: url,
@@ -165,7 +165,7 @@ function updateAdvisories(){
 
 
 function setupForm(){
-  var url = 'http://api.bart.gov/api/stn.aspx';
+  var url = 'https://api.bart.gov/api/stn.aspx';
 
   //Request list of BART stations
   $.ajax({
