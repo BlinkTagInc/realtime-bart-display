@@ -181,10 +181,8 @@ function setupForm(){
       });
       
       //Retreive station from localstorage
-      if(Modernizr.localstorage) {
-        if(localStorage.getItem("station")){
-          $('#stationSelect').val(localStorage.getItem("station"));
-        }
+      if(localStorage.getItem("station")){
+        $('#stationSelect').val(localStorage.getItem("station"));
       }
       
       $('#stationSelect').show();
@@ -208,9 +206,7 @@ $(function(){
     var station = $.getUrlVar('station');
     
     //Set this as a localstorage option for next time
-    if(Modernizr.localstorage) {
-      localStorage.setItem("station", station);
-    }
+    localStorage.setItem("station", station);
     
     $('#infoContainer').show();
     $('#setupFormContainer').hide();
@@ -228,25 +224,19 @@ $(function(){
       $('#toggleImages').html('Show Images');
       $('#background img').fadeOut();
       $('.photoCredit').fadeOut();
-      if(Modernizr.localstorage) {
-        localStorage.setItem("backgroundImage",false);
-      }
+      localStorage.setItem("backgroundImage",false);
     } else {
       $('#toggleImages').html('Hide Images');
       $('#background img').fadeIn();
       $('.photoCredit').fadeIn();
-      if(Modernizr.localstorage) {
-        localStorage.setItem("backgroundImage",true);
-      }
+      localStorage.setItem("backgroundImage",true);
     }
     return false;
   });
   
   //Detect if backgroundImage preference is set
-  if(Modernizr.localstorage) {
-    if(localStorage.getItem("backgroundImage") === "false"){
-      $('#toggleImages').click();
-    }
+  if(localStorage.getItem("backgroundImage") === "false"){
+    $('#toggleImages').click();
   }
   
   //Background rotator
